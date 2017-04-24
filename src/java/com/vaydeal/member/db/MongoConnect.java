@@ -92,4 +92,14 @@ public class MongoConnect {
         }
         return mid;
     }
+
+    public boolean logout(String at) {
+        boolean status = false;
+        MongoCollection<Document> collection = db.getCollection("member_access_token");
+        UpdateResult updateOne = collection.updateOne(eq("token", at), combine(set("status", "not logged")));
+        if (updateOne.getMatchedCount() == 1) {
+            status = true;
+        }
+        return status;
+    }
 }

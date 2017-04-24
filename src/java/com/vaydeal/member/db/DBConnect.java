@@ -6,6 +6,7 @@
 
 package com.vaydeal.member.db;
 
+import com.vaydeal.member.req.mod.ChangePassword;
 import com.vaydeal.member.req.mod.NewPassword;
 import com.vaydeal.member.req.mod.Register;
 import com.vaydeal.member.req.mod.UpdateBankDetails;
@@ -253,6 +254,14 @@ public class DBConnect {
         ps.setString(5, req.getMember_id());
         int c = ps.executeUpdate();
         ps.close();
+        return c == 1;
+    }
+
+    public boolean changePassword(ChangePassword req) throws SQLException {
+        PreparedStatement ps = connect.prepareStatement("UPDATE member_login SET password = ? WHERE member_id = ?");
+        ps.setString(1, req.getNewPassword());
+        ps.setString(2, req.getMember_id());
+        int c = ps.executeUpdate();
         return c == 1;
     }
 }

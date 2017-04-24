@@ -9,6 +9,7 @@ package com.vaydeal.member.jsn;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaydeal.member.mongo.mod.MemberID;
 import com.vaydeal.member.mongo.mod.VerifyToken;
+import com.vaydeal.member.result.ChangePasswordResult;
 import com.vaydeal.member.result.GetMemberBankDetailsResult;
 import com.vaydeal.member.result.GetMemberReportResult;
 import com.vaydeal.member.result.GetMyProfileResult;
@@ -83,6 +84,12 @@ public class JSONParser {
     public static UpdateBankDetailsResult parseJSONUBDR(String reqv) throws IOException {
         UpdateBankDetailsResult res;
         res = MAPPER.readValue(reqv, UpdateBankDetailsResult.class);
+        return res;
+    }
+
+    public static ChangePasswordResult parseJSONCPR(String reqv) throws IOException {
+        ChangePasswordResult res;
+        res = MAPPER.readValue(reqv, ChangePasswordResult.class);
         return res;
     }
 }

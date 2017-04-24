@@ -48,6 +48,14 @@
         <servlet-name>UpdateBankDeatails</servlet-name>
         <servlet-class>com.vaydeal.member.controller.updateBankDetails</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>changePassword</servlet-name>
+        <servlet-class>com.vaydeal.member.controller.changePassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>com.vaydeal.member.controller.logout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>getNoMembers</servlet-name>
         <url-pattern>/getNoMembers</url-pattern>
@@ -95,6 +103,14 @@
     <servlet-mapping>
         <servlet-name>UpdateBankDeatails</servlet-name>
         <url-pattern>/UpdateBankDeatails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>changePassword</servlet-name>
+        <url-pattern>/changePassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
