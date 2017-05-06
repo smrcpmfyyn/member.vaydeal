@@ -28,20 +28,21 @@ public class RPFailureResponse {
     
     @Override
     public String toString() {
-        String json = "";
-        String[] errors = error.split("#");
-        String parameter = errors[1];
         String resp;
-        switch (parameter) {
-            case "token":
-                String token = rpr.getToken();
-                resp = token.substring(token.lastIndexOf(" ") + 1);
-                json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
-                this.token = resp;
-                break;
+        StringBuilder sb = new StringBuilder();
+        sb.append("<div id=\"rp\" class=\"col-12 reset-pwd\"> <div class=\"reset-error\">\n"
+                + "            <i> <img src=\"images/error-image.png\" alt=\"error\"> </i>\n"
+                + "            <p class=\"error-bg\"> Error occurred !</p>\n"
+                + "            <h2> Token ");
+        String token = rpr.getToken();
+        resp = token.substring(token.lastIndexOf(" ") + 1);
+        if (resp.startsWith("not")) {
+            resp = resp.replace("not", "not ");
         }
-        json = json.substring(0, json.length() - 1);
-        return "{" + json + "}";
+        sb.append(resp);
+        sb.append("</h2>\n" +
+"        </div>").append("</div>");
+        return sb.toString();
     }
 }
 

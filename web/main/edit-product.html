@@ -1,0 +1,160 @@
+
+<!-- Catalog Page -->
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$('select').material_select();
+
+		// input number
+		function isNumberKey(evt){
+		    var charCode = (evt.which) ? evt.which : evt.keyCode;
+		    if (charCode > 31 && (charCode < 48 || charCode > 57))
+		        return false;
+		    return true;
+		}
+
+		// Clips
+		$('.chips').material_chip();
+
+		$('.edit-color').material_chip({
+		    data: [{
+		      tag: 'Black',
+		    }, {
+		      tag: 'Blue',
+		    }, {
+		      tag: 'Red',
+		    }],
+		});
+		$('.edit-size').material_chip({
+		    data: [{
+		      tag: '32',
+		    }, {
+		      tag: '34',
+		    }, {
+		      tag: '42',
+		    }],
+		});
+
+		// Select Option Add Specification
+		$("#selectedValue").click(function() {
+	        $("#resultView").empty();
+	        var e = $("#selectOption option:selected").val();
+	        return $("#resultView").append(e), $(".select-spec").last().clone().appendTo($(".more-specifications-view")).find("input").attr("name", function(e, t) {
+	            return t.replace(/\[(\d+)\]/, function(e, t) {
+	                return "[" + (+t + 1) + "]"
+	            })
+	        }), !1
+	    })
+
+
+
+	});
+</script>
+
+<div class="clearfix"></div>
+<div class="container">
+	<div class="section-head">
+		<div class="col-12">
+			<h1>Edit Products and Details</h1>
+		</div>
+	</div>
+	<hr class="hr">
+	<div class="edit-product form row-fluid">
+		<div class="col-6">
+			<label>Select Category</label>
+		    <select>
+		    	<option value="" disabled>Choose your option</option>
+		        <option value="1">Option 1</option>
+		        <option value="2" selected>Option 2</option>
+		        <option value="3">Option 3</option>
+		    </select>
+		    <label>Sub Category</label>
+		    <select>
+		    	<option value="" disabled>Choose your option</option>
+		        <option value="1">Option 1</option>
+		        <option value="2">Option 2</option>
+		        <option value="3" selected>Option 3</option>
+		    </select>
+		    <label>Product Type</label>
+		    <select>
+		    	<option value="" disabled>Choose your option</option>
+		        <option value="1">Option 1</option>
+		        <option value="2">Option 2</option>
+		        <option value="3" selected>Option 3</option>
+		    </select>
+		    <label>Product Name</label>
+		    <input type="text" name="brandName" value="Sunaina Printed Fashion Art Silk Sari (Multicolor)">
+		    <label>Price</label>
+		    <div class="add-product-price">
+		    	<span class="add-price-icon">&#x20B9;</span>
+		    	<input type="text" name="form_number" onkeypress='return isNumberKey(event)' value="6500.00">
+		    </div>
+		</div>
+		<div class="col-6 upload-section">
+			<div class="upload-image">
+				<h3>Edit and Upload your images</h3>
+				<h5>Minimum 1 Image Upload</h5>
+				<button class="btn btn-bg waves-effect" type="button">Upload Files</button>
+			</div>
+			<ul class="upload-images-list">
+				<li><img src="../images/product_image/pro-31.jpg" alt=""></li>
+				<li><img src="../images/product_image/pro-32.jpg" alt=""></li>
+				<li><img src="../images/product_image/pro-37.jpg" alt=""></li>
+				<li><img src="../images/product_image/pro-38.jpg" alt=""></li>
+				<li class="non-image"><div class="no-image-section"><i class="ti-image"></i><span>Upload Image</span></div></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="add-product-specifications">
+		<div class="form">
+			<h3>Add Products Specifications</h3>
+			<label>Brand Name</label>
+		    <input type="text" name="brandName" value="Apple">
+			<label>Color</label>
+			<div class="chips edit-color"></div>
+			<label>Size</label>
+			<div class="chips edit-size"></div>
+			<div class="add-more-specifications">
+				<label>Add More Specifications</label>
+				<select id="selectOption">
+			    	<option value="" disabled selected>Choose your option</option>
+			        <option value="Sales Package">Sales Package</option>
+			        <option value="Model Number">Model Number</option>
+			        <option value="Model Name">Model Name</option>
+			        <option value="Browse Type">Browse Type</option>
+			        <option value="SIM Type">SIM Type</option>
+			        <option value="Hybrid Sim Slot">Hybrid Sim Slot</option>
+			        <option value="Touchscreen">Touchscreen</option>
+			        <option value="Compatible">Compatible</option>
+			        <option value="Primary Camera Available">Primary Camera Available</option>
+			        <option value="Primary Camera">Primary Camera</option>
+			        <option value="Display Size">Display Size</option>
+			        <option value="Resolution">Resolution</option>
+			        <option value="Resolution Type">Resolution Type</option>
+			        <option value="Display Type">Display Type</option>
+			        <option value="Operating System">Operating System</option>
+			        <option value="Internal Storage">Internal Storage</option>
+			        <option value="Phone Book Memory">Phone Book Memory</option>
+			        <option value="Call Log Memory">Call Log Memory</option>
+			        <option value="SMS Memory">SMS Memory</option>
+			        <option value="Flash">Flash</option>
+			    </select>
+			    <button id="selectedValue" class="btn btn-bg waves-effect" type="button"><i class="ti-plus"></i>Add Option</button>
+
+			    <div class="select-spec">
+		           <label id="resultView" for=""></label>
+		           <input id="" name="" class="span3"  type="text">
+		        </div>
+		    </div>
+
+		    <div class="more-specifications-view">  </div>
+
+
+		</div>
+	</div>
+
+
+
+</div>
