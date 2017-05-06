@@ -59,3 +59,9 @@ $(document).ready(function() {
     
     
 });
+
+function autoHide(id) {
+    setTimeout(function(){
+        $("#"+id).fadeOut('fast');
+    }, 5000);
+}

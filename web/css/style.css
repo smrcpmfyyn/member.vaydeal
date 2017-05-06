@@ -1915,3 +1915,19 @@ nav ul li a:hover, nav ul li a:focus{
 .table {
     
 }
+
+/*message*/
+.msg-status {
+    width: 100%;
+    clear: both;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border: 2px solid #f5d5d5;
+    position: relative;
+    z-index: 101;
+}
+.msg-status.error {
+    color: #ff6060;
+    background-color: rgb(255, 229, 229);
+}
