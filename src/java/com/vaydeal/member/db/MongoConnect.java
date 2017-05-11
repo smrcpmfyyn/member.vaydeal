@@ -57,13 +57,18 @@ public class MongoConnect {
     public VerifyToken verifyToken(String token) throws IOException {
         MongoCollection<Document> fgp = db.getCollection("member_password_token");
         FindIterable<Document> find = fgp.find(Filters.and(eq("token", token))).projection(exclude("token", "_id"));
-        VerifyToken vt = JSONParser.parseJSONVT(find.first().toJson());
+        VerifyToken vt;
+        if (find.first() != null) {
+            vt = JSONParser.parseJSONVT(find.first().toJson());
+        } else {
+            vt = new VerifyToken();
+        }
         return vt;
     }
 
     public long updateTokenStatus(NewPassword req) {
         MongoCollection<Document> fgp = db.getCollection("member_password_token");
-        UpdateResult updateOne = fgp.updateOne(eq("user_id", req.getMember_id()), combine(set("status", "verified")));
+        UpdateResult updateOne = fgp.updateOne(eq("member_id", req.getMember_id()), combine(set("status", "verified")));
         return updateOne.getMatchedCount();
     }
 
@@ -97,6 +102,16 @@ public class MongoConnect {
         boolean status = false;
         MongoCollection<Document> collection = db.getCollection("member_access_token");
         UpdateResult updateOne = collection.updateOne(eq("token", at), combine(set("status", "not logged")));
+        if (updateOne.getMatchedCount() == 1) {
+            status = true;
+        }
+        return status;
+    }
+
+    public boolean updateAUPasswordToken(String mid, String passwordToken) {
+        boolean status = false;
+        MongoCollection<Document> fgp = db.getCollection("member_password_token");
+        UpdateResult updateOne = fgp.updateOne(eq("member_id", mid), combine(set("token", "" + passwordToken), set("status", "not changed"), set("toe", "" + (System.currentTimeMillis() + 300000))));
         if (updateOne.getMatchedCount() == 1) {
             status = true;
         }

@@ -63,4 +63,6 @@ public class ErrMsg {
     public static final String ERR_FTR_ACTIVITY = "Invalid ftractivity invalid";
     public static final String ERR_FTR_ACTIVITY_NOT_EXISTS = "Invalid ftractivity notexists";
     public static final String ERR_ENTRY_STATUS = "Invalid ftrentrystatus invalid";
+    public static final String ERR_UID_BLOCKED = "Invalid uid blocked";
+    public static final String ERR_FORGOT_PASSWORD = "Invalid forgotpass";
 }

@@ -56,6 +56,10 @@
         <servlet-name>logout</servlet-name>
         <servlet-class>com.vaydeal.member.controller.logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>forgotPassword</servlet-name>
+        <servlet-class>com.vaydeal.member.controller.forgotPassword</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>getNoMembers</servlet-name>
         <url-pattern>/getNoMembers</url-pattern>
@@ -111,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>logout</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>forgotPassword</servlet-name>
+        <url-pattern>/forgotPassword</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

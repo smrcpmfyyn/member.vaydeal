@@ -1,69 +1,116 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-    <title>vayDeal- Largest Online Shopping Site</title>
-    <meta name="description" content="">
-    <meta name="Keywords" content=""/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="og_site_name" property="og:site_name" content=""/>
-    <meta name="og_title" property="og:title" content=""/>
-    <meta name="og_url" property="og:url" content=""/>
-    
-    <link rel="canonical" href=""/>
-    <link rel='shortcut icon' href="images/favicon.ico" />
-    
-    <!-- CSS -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/vaydeal-icons.css">
-    
-    <!-- JS -->
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/animation.jquery.js"></script>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>vayDeal- Largest Online Shopping Site</title>
+        <meta name="description" content="">
+        <meta name="Keywords" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="og_site_name" property="og:site_name" content=""/>
+        <meta name="og_title" property="og:title" content=""/>
+        <meta name="og_url" property="og:url" content=""/>
 
-</head>
+        <link rel="canonical" href=""/>
+        <link rel='shortcut icon' href="images/favicon.ico" />
 
-<body>
-<main>
-   <header>
-        <div class="container-fluid">
-            <div class="header-logo">
-            	<a href="#"><img src="images/logo.png" alt=""></a>
-            </div>
-            <div class="header-menu">
-            	<ul>
-                    <input type="name" id="userName" name="userName" placeholder="User Name">
-                    <input type="password" id="userPassword" name="userPassword" placeholder="Password">
-                    <button type="submit" onClick="logSubmit()" class="btn btn-bg">Login</button>
-                    <a class="right" href="forgotPassword.html"><small>Forgot your password?</small></a>
-                    <button type="button" class="btn btn-bg" onclick="window.location.href='main/master.html'">Main Page</button>
-            	</ul>
+        <!-- CSS -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/vaydeal-icons.css">
+
+        <!-- JS -->
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/animation.jquery.js"></script>
+
+    </head>
+
+    <body>
+        <main>
+            <header>
+                <div class="container-fluid">
+                    <div class="header-logo">
+                        <a href="#"><img src="images/logo.png" alt=""></a>
+                    </div>
+                    <div class="header-menu">
+                        <form onsubmit="return loginFN()" >
+                            <ul>
+                                <input required pattern="[0-9]{7,}" type="name" id="userName" name="userName" placeholder="User Name">
+                                <input required type="password" id="userPassword" name="userPassword" placeholder="Password">
+                                <button type="submit" class="btn btn-bg">Login</button>
+                                <a class="right" href="forgotPassword.html"><small>Forgot your password?</small></a>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+            </header>
+        </main>
+        <div id="regErr">
+            <div id="indexErr"></div>
+            <div class="col-6">program</div>
+            <div class="col-6" id="redCon">
+                <div class="form register-form">
+                    <form onsubmit="return register()">
+                        <label> Name</label>
+                        <input id="name" type="text" name="name">
+                        <label> Email</label>
+                        <input id="email" type="email" name="email">
+                        <label> Mobile </label>
+                        <input id="mob" type="text" name="mobile">
+                        <button type="submit" class="btn btn-bg waves-effect"> Register </button>
+                    </form>
+                </div>
             </div>
         </div>
-    </header>
-</main>
-   <div id="msgStatus" class="msg-status error"> Username not exists</div>
-   <div class="col-6">program</div>
-   <div class="col-6">
-        <div class="form register-form">
-            <label> Name</label>
-            <input type="text" name="name">
-            <label> Email</label>
-            <input type="email" name="email">
-            <label> Mobile </label>
-            <input type="text" name="mobile">
-            <button type="submit" class="btn btn-bg waves-effect"> Register </button>
-        </div>
-    </div>
-    <!-- JS -->
-    <script type="text/javascript" src="js/vaydeal.jquery.js"></script>
-    <script>
-        $(document).ready(function (){
-            autoHide("msgStatus");
-        });
-    </script>
-</body>
+        <!-- JS -->
+        <script type="text/javascript" src="js/vaydeal.jquery.js"></script>
+        <script>
+                        $(document).ready(function () {
+                            checkForParams();
+                        });
+                        
+                        function checkForParams() {
+                            var le = getUrlParameter("le");
+                            if (le === '1') {
+                                $("#indexErr").html("<div id=\"msgStatus\" class=\"msg-status error\">Login error!</div>");
+                                autoHide("msgStatus");
+                            }
+                        }
+
+                        function loginFN() {
+                            var user = $("#userName").val();
+                            var pass = $("#userPassword").val();
+                            $.post("login", {"uname": user, "pass": pass}, function (suc) {
+                                if (suc.status === "ok") {
+                                    window.location.href = suc.ut + "/master.html";
+                                } else {
+                                    if (!(typeof suc.uname === 'undefined' || suc.uname === null)) {
+                                        if (suc.uname.startsWith("not")) {
+                                            $("#indexErr").html("<div id=\"msgStatus\" class=\"msg-status error\"> Username not exists</div>");
+                                        } else {
+                                            $("#indexErr").html("<div id=\"msgStatus\" class=\"msg-status error\"> Username invalid</div>");
+                                        }
+                                    } else if (!(typeof suc.password === 'undefined' || suc.password === null)) {
+                                        $("#indexErr").html("<div id=\"msgStatus\" class=\"msg-status error\"> Password invalid</div>");
+                                    }
+                                    autoHide("msgStatus");
+                                }
+
+                            });
+                            return false;
+                        }
+
+                        function register() {
+                            var name = $("#name").val();
+                            var email = $("#email").val();
+                            var mob = $("#mob").val();;
+                            $.post("register", {'name': name, 'email': email, 'mob': mob}, function (suc) {
+                                $("#regErr").html(suc);
+                                autoHide("msgStatus");
+                            });
+                            return false;
+                        }
+        </script>
+    </body>
 </html>

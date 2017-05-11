@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.vaydeal.member.processreq;
 
 import com.vaydeal.member.db.DB;
@@ -19,8 +18,8 @@ import com.vaydeal.member.resp.mod.NPSuccessResponse;
  * @company techvay
  * @author rifaie
  */
-public class ProcessNP implements NPProcessor{
-    
+public class ProcessNP implements NPProcessor {
+
     private final NewPassword req;
     private final DBConnect dbc;
     private final MongoConnect mdbc;
@@ -34,7 +33,6 @@ public class ProcessNP implements NPProcessor{
     @Override
     public int changePassword() throws Exception {
         int cp = dbc.changePassword(req);
-        dbc.closeConnection();
         return cp;
     }
 
@@ -47,20 +45,20 @@ public class ProcessNP implements NPProcessor{
     @Override
     public NPSuccessResponse processRequest() throws Exception {
         NPSuccessResponse response = null;
-        try{
+        try {
             req.setMember_id(getUserId(req.getToken()).getMember_id());
-            int cp = changePassword();
-            if(cp == 1){
-                long ts = updateTokenStatus();
-                if(ts == 1){
+            long ts = updateTokenStatus();
+            if (ts == 1) {
+                int cp = changePassword();
+                if (cp == 1) {
                     response = generateResponse(true);
-                }else{
+                } else {
                     response = generateResponse(false);
                 }
-            }else{
+            } else {
                 response = generateResponse(false);
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             throw ex;
         }
         return response;
@@ -82,7 +80,7 @@ public class ProcessNP implements NPProcessor{
         VerifyToken vt = mdbc.getMemberId(token);
         return vt;
     }
-    
+
     @Override
     public void closeConnection() throws Exception {
         dbc.closeConnection();

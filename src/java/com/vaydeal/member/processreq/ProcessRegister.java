@@ -52,9 +52,9 @@ public class ProcessRegister implements RegisterProcessor {
     public RegisterSuccessResponse generateResponse(boolean status) {
         RegisterSuccessResponse resp;
         if (status) {
-            resp = new RegisterSuccessResponse(ResponseMsg.RESP_OK);
+            resp = new RegisterSuccessResponse(ResponseMsg.RESP_OK,req);
         } else {
-            resp = new RegisterSuccessResponse(ResponseMsg.RESP_NOT_OK);
+            resp = new RegisterSuccessResponse(ResponseMsg.RESP_NOT_OK,req);
         }
         return resp;
     }

@@ -7,6 +7,7 @@
 package com.vaydeal.member.db;
 
 import com.vaydeal.member.req.mod.ChangePassword;
+import com.vaydeal.member.req.mod.ForgotPassword;
 import com.vaydeal.member.req.mod.NewPassword;
 import com.vaydeal.member.req.mod.Register;
 import com.vaydeal.member.req.mod.UpdateBankDetails;
@@ -263,5 +264,36 @@ public class DBConnect {
         ps.setString(2, req.getMember_id());
         int c = ps.executeUpdate();
         return c == 1;
+    }
+
+    public boolean checkEmail(String param, String mid) throws SQLException {
+        PreparedStatement ps = connect.prepareStatement("SELECT count(*) FROM member_logger_not_blocked WHERE member_email = ? AND  member_id = ?");
+        ps.setString(1, param);
+        ps.setString(2, mid);
+        rs = ps.executeQuery();
+        rs.next();
+        int c = rs.getInt(1);
+        rs.close();
+        ps.close();
+        return c == 1;
+    }
+
+    public boolean changePassword(ForgotPassword req) throws SQLException {
+        PreparedStatement ps = connect.prepareStatement("UPDATE member_login SET password = ? WHERE member_id = ?");
+        ps.setString(1, req.getPassword());
+        ps.setString(2, req.getMid());
+        int c = ps.executeUpdate();
+        return c == 1;
+    }
+
+    public String getMemberType(String param) throws SQLException {
+        PreparedStatement ps = connect.prepareStatement("SELECT member_type FROM member_logger WHERE member_id = ?");
+        ps.setString(1, param);
+        rs = ps.executeQuery();
+        rs.next();
+        String type = rs.getString(1);
+        rs.close();
+        ps.close();
+        return type;
     }
 }

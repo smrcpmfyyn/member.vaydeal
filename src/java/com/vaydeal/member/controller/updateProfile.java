@@ -60,7 +60,7 @@ public class updateProfile extends HttpServlet {
             reqV.validation();
             UpdateProfileResult reqR = JSONParser.parseJSONUPR(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getMember_id(), "update_profile", "valid");
+            UserActivities ua = new UserActivities(req.getMember_id(), "update_profile", req.getMember_type(), "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessUpdateProfile process = new ProcessUpdateProfile(req);
                 UpdateProfileSuccessResponse SResp = process.processRequest();

@@ -56,7 +56,7 @@ public class changePassword extends HttpServlet {
             reqV.validation();
             ChangePasswordResult reqR = JSONParser.parseJSONCPR(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getMember_id(), "get_payments", "valid");
+            UserActivities ua = new UserActivities(req.getMember_id(), "get_payments",req.getMember_type(), "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessChangePassword process = new ProcessChangePassword(req);
                 ChangePasswordSuccessResponse SResp = process.processRequest();

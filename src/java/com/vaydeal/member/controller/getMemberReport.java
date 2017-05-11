@@ -54,7 +54,7 @@ public class getMemberReport extends HttpServlet {
             reqV.validation();
             GetMemberReportResult reqR = JSONParser.parseJSONGMRR(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getMember_id(), "get_member_report",  "valid");
+            UserActivities ua = new UserActivities(req.getMember_id(), "get_member_report", req.getMember_type(), "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetMemberReport process = new ProcessGetMemberReport(req);
                 GetMemberReportSuccessResponse SResp = process.processRequest();

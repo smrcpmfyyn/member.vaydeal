@@ -15,16 +15,18 @@ import com.vaydeal.member.db.MongoConnect;
  */
 public class UserActivities {
     private final String member_id;
+    private final String memberType;
     private final String activity;
     private final String dateTime;
     private String entryStatus;
     private MongoConnect mdbc;
 
-    public UserActivities(String user_id, String activity, String entryStatus) {
+    public UserActivities(String user_id, String activity, String memberType, String entryStatus) {
         this.member_id = user_id;
         this.activity = activity;
         this.dateTime = ""+System.currentTimeMillis();
         this.entryStatus = entryStatus;
+        this.memberType = memberType;
     }
     
     public void setEntryStatus(String entryStatus) {
@@ -39,7 +41,7 @@ public class UserActivities {
 
     @Override
     public String toString() {
-        return "{\"member_id\":\"" + member_id +   "\", \"activity\":\"" + activity + "\", \"dateTime\":\"" + dateTime + "\", \"entryStatus\":\"" + entryStatus + "\"}";
+        return "{\"member_id\":\"" + member_id +   "\", \"activity\":\"" + activity +   "\", \"type\":\"" + memberType + "\", \"dateTime\":\"" + dateTime + "\", \"entryStatus\":\"" + entryStatus + "\"}";
     }
     
 }

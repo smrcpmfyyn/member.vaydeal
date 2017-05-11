@@ -39,11 +39,10 @@ public class newPassword extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json");
+        response.setContentType("text/html");
         try (PrintWriter out = response.getWriter()) {
             String token = request.getParameter("token");
-            token = token.replaceAll(" ", "+");
-            String password = request.getParameter("newpass");
+            String password = request.getParameter("np");
             NewPassword req = new NewPassword(token, password);
             req.changePassword();
             ResetPassword rp = new ResetPassword(token);

@@ -42,8 +42,6 @@ public class resetPassword extends HttpServlet {
         response.setContentType("text/html");
         try (PrintWriter out = response.getWriter()) {
             String token = request.getParameter("token");
-            token = URLDecoder.decode(token, "UTF-8");
-            token = token.replaceAll(" ", "+");
             ResetPassword req = new ResetPassword(token);
             RPValidation reqV = new RPValidation(req);
             reqV.validation();

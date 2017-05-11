@@ -52,9 +52,9 @@ public class register extends HttpServlet {
                 ProcessRegister process = new ProcessRegister(req);
                 RegisterSuccessResponse npSResp = process.processRequest();
                 process.closeConnection();
-                out.print(npSResp);
+                out.print(npSResp.toString());
             }else if(validSubmission.startsWith(ErrMsg.ERR_ERR)){
-                RegisterFailureResponse FResp = new RegisterFailureResponse(reqR, validSubmission);
+                RegisterFailureResponse FResp = new RegisterFailureResponse(reqR, validSubmission,req);
                 out.print(FResp);
             }else{
                 // Exception Response

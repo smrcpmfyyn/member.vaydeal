@@ -46,4 +46,5 @@ public class CorrectMsg {
     public static final String CORRECT_FTR_UTYPE = "Valid ftrutype";
     public static final String CORRECT_FTR_ACTIVITY = "Valid ftractivity";
     public static final String CORRECT_FTR_ENTRY_STATUS = "Valid ftrentrystatus";
+    public static final String CORRECT_FORGOT_PASSWORD = "Valid forgotpass";
 }

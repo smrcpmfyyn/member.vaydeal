@@ -54,7 +54,7 @@ public class getMyProfile extends HttpServlet {
             reqV.validation();
             GetMyProfileResult reqR = JSONParser.parseJSONGMPR(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getMember_id(), "get_my_profile", "valid");
+            UserActivities ua = new UserActivities(req.getMember_id(), "get_my_profile", req.getMember_type(), "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetMyProfile process = new ProcessGetMyProfile(req);
                 GetMyProfileSuccessResponse SResp = process.processRequest();

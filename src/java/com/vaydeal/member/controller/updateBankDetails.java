@@ -59,7 +59,7 @@ public class updateBankDetails extends HttpServlet {
             reqV.validation();
             UpdateBankDetailsResult reqR = JSONParser.parseJSONUBDR(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getMember_id(), "update_profile", "valid");
+            UserActivities ua = new UserActivities(req.getMember_id(), "update_profile", req.getMember_type(), "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessUpdateBankDetails process = new ProcessUpdateBankDetails(req);
                 UpdateBankDetailsSuccessResponse SResp = process.processRequest();

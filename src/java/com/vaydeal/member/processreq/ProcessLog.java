@@ -6,6 +6,7 @@
 
 package com.vaydeal.member.processreq;
 
+import com.sun.xml.ws.tx.coord.common.PendingRequestManager;
 import com.vaydeal.member.db.DB;
 import com.vaydeal.member.db.DBConnect;
 import com.vaydeal.member.db.MongoConnect;
@@ -60,9 +61,9 @@ public class ProcessLog implements LogProcessor {
     public LogSuccessResponse generateResponse(boolean status) {
         LogSuccessResponse resp;
         if (status) {
-            resp = new LogSuccessResponse(ResponseMsg.RESP_OK, accessToken);
+            resp = new LogSuccessResponse(ResponseMsg.RESP_OK, accessToken,log.getMember_type());
         } else {
-            resp = new LogSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
+            resp = new LogSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken,log.getMember_type());
         }
         return resp;
     }

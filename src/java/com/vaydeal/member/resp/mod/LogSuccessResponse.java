@@ -13,6 +13,7 @@ package com.vaydeal.member.resp.mod;
 public class LogSuccessResponse {
     private final String status;
     private final String accessToken;
+    private String userType;
 
     public String getStatus() {
         return status;
@@ -22,14 +23,18 @@ public class LogSuccessResponse {
         return accessToken;
     }
 
-    public LogSuccessResponse(String status, String accessToken) {
+    public LogSuccessResponse(String status, String accessToken, String userType) {
         this.status = status;
         this.accessToken = accessToken;
+        this.userType = userType;
     }
 
     @Override
     public String toString() {
-        return "{\"status\":\"" + status  +"\"}";
+        if(userType.endsWith("associate")){
+            userType = "associate";
+        }
+        return "{\"status\":\"" + status  +"\",\"ut\":\""+userType+"\"}";
     }
     
 }

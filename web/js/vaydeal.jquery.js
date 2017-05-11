@@ -60,8 +60,30 @@ $(document).ready(function() {
     
 });
 
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sURLVariables[i].replace(sParam+"=","");
+        }
+    }
+};
+
 function autoHide(id) {
     setTimeout(function(){
         $("#"+id).fadeOut('fast');
     }, 5000);
+}
+
+function logout(){
+    $.post("../logout",{}, function(suc){
+        window.location.href = "../index.html";
+    });
 }

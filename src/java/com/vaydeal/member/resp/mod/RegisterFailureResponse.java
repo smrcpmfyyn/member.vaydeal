@@ -7,6 +7,7 @@
 package com.vaydeal.member.resp.mod;
 
 import com.vaydeal.member.message.ResponseMsg;
+import com.vaydeal.member.req.mod.Register;
 import com.vaydeal.member.result.RegisterResult;
 
 /**
@@ -17,39 +18,55 @@ public class RegisterFailureResponse {
 
     private final RegisterResult reqR;
     private final String error;
+    private final Register req;
 
-    public RegisterFailureResponse(RegisterResult reqR, String error) {
+    public RegisterFailureResponse(RegisterResult reqR, String error,Register req) {
         this.reqR = reqR;
         this.error = error;
+        this.req = req;
     }
 
     @Override
     public String toString() {
-        String json = "\"status\":\""+ResponseMsg.RESP_NOT_OK + "\",";
         String[] errors = error.split("#");
-        String resp;
+        String err = "";
         for (int i = 1; i < errors.length; i++) {
-            String parameter = errors[1];
+            String parameter = errors[i];
             switch (parameter) {
                 case "name":
-                    String name = reqR.getName();
-                    resp = name.substring(name.lastIndexOf(" ") + 1);
-                    json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
+                    err += "Invalid Name\n";
                     break;
                 case "email":
-                    String email = reqR.getEmail();
-                    resp = email.substring(email.lastIndexOf(" ") + 1);
-                    json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
+                    err += "Invalid Email\n";
                     break;
                 case "mobile":
-                    String mobile = reqR.getMobile();
-                    resp = mobile.substring(mobile.lastIndexOf(" ") + 1);
-                    json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
+                    err += "Invalid Mobile Number";
                     break;
             }
         }
-        json = json.substring(0, json.length() - 1);
-        return "{" + json + "}";
+        StringBuilder sb = new StringBuilder();
+        sb.append("<div id=\"indexErr\"><div id=\"msgStatus\" class=\"msg-status error\">");
+        sb.append(err);
+        sb.append("</div>"+
+"         </div>\n" +
+"            <div class=\"col-6\"></div>\n" +
+"            <div class=\"col-6\" id=\"reqPCon\">"+
+"              <div class=\"form register-form\">\n" +
+"                <h2>Request Promotion</h2>\n" +
+"                <label id=\"rpmsg\"></label>\n" +
+"                <form onsubmit=\"return reqPromo()\">\n" +
+"                    <label> Name </label>\n" +
+"                    <input type=\"text\" id=\"name\"  value='"+req.getName()+"' required name=\"confoer\">\n" +
+"                    <label> Email </label>\n" +
+"                    <input type=\"email\" id=\"email\"   value='"+req.getEmail()+"'required name=\"email\">\n" +
+"                    <label> Mobile </label>\n" +
+"                    <input type=\"text\" name=\"mobile\" id=\"mob\" pattern=\"[7-9]{1}[0-9]{9}\"   value='"+req.getMobile()+"' required>\n" +
+"                    <button type=\"submit\" class=\"btn btn-bg waves-effect\"> Request Promotion </button>\n" +
+"                </form>\n" +
+"            </div>\n" +
+"       </div>\n");
+        
+        return sb.toString();
     }
 
 }
