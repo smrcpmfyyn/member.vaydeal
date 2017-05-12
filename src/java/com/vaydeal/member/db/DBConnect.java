@@ -97,6 +97,7 @@ public class DBConnect {
         PreparedStatement ps = connect.prepareStatement("SELECT salt,password,member_id,member_type FROM member_logger WHERE member_id = ? OR member_email = ?");
         List<String> proD = new ArrayList<>();
         ps.setString(1, uname);
+        ps.setString(2, uname);
         rs = ps.executeQuery();
         if (rs.next()) {
             proD.add(rs.getString("salt"));

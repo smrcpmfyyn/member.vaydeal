@@ -43,7 +43,7 @@ public class forgotPassword extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html");
         try (PrintWriter out = response.getWriter()) {
-            String mid = request.getParameter("mid");
+            String mid = request.getParameter("uid");
             String email = request.getParameter("email");
             ForgotPassword req = new ForgotPassword(mid, email);
             ForgotPasswordValidation reqV = new ForgotPasswordValidation(req);

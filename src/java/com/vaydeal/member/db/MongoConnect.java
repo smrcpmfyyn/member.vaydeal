@@ -46,8 +46,7 @@ public class MongoConnect {
     public boolean updateAccessToken(String member_id, String accessToken) {
         boolean status = false;
         MongoCollection<Document> fgp = db.getCollection("member_access_token");
-        UpdateResult updateOne = fgp.updateOne(eq("user_id", member_id), combine(set("token", "" + accessToken), set("status", "logged")));
-        System.out.println(updateOne.getMatchedCount());
+        UpdateResult updateOne = fgp.updateOne(eq("member_id", member_id), combine(set("token", "" + accessToken), set("status", "logged")));
         if (updateOne.getMatchedCount() == 1) {
             status = true;
         }
