@@ -23,6 +23,7 @@ import com.vaydeal.member.mongo.mod.MemberID;
 import com.vaydeal.member.mongo.mod.VerifyToken;
 import com.vaydeal.member.req.mod.NewPassword;
 import java.io.IOException;
+import java.net.URLEncoder;
 import org.bson.Document;
 
 /**
@@ -34,7 +35,9 @@ public class MongoConnect {
     private final MongoClient mongoClient;
 
     public MongoConnect() throws Exception {
-        MongoClientURI uri = new MongoClientURI("mongodb://35.154.242.9/");
+        String pass = "V@YDR#@MS";
+        pass = URLEncoder.encode(pass);
+        MongoClientURI uri = new MongoClientURI("mongodb://vaydeal:"+pass+"@13.126.8.181/vaydeal");
         mongoClient = new MongoClient(uri);
         db = mongoClient.getDatabase("vaydeal");
     }
