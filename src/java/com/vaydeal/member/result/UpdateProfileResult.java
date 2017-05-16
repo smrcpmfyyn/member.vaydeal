@@ -23,7 +23,16 @@ public class UpdateProfileResult implements Result {
     private String pin;
     private String place;
     private String city;
+    private String page;
     private String reqValidation;
+
+    public String getPage() {
+        return page;
+    }
+
+    public void setPage(String page) {
+        this.page = page;
+    }
 
     public String getAt() {
         return at;
@@ -132,6 +141,9 @@ public class UpdateProfileResult implements Result {
             }
             if (city.startsWith(ErrMsg.ERR_MESSAGE)) {
                 error += "city#";
+            }
+            if (page.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "page#";
             }
         }
         return error.substring(0, error.length() - 1);

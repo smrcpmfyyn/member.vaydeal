@@ -46,9 +46,7 @@ public class ProcessLog implements LogProcessor {
     public LogSuccessResponse processRequest() throws Exception {
         LogSuccessResponse obj = null;
         if (generateToken()) {
-            System.out.println("token");
             if (updateLog()) { 
-                System.out.println("update log");
                 obj = generateResponse(true);
             } else {
                 obj = generateResponse(false);
@@ -63,9 +61,9 @@ public class ProcessLog implements LogProcessor {
     public LogSuccessResponse generateResponse(boolean status) {
         LogSuccessResponse resp;
         if (status) {
-            resp = new LogSuccessResponse(ResponseMsg.RESP_OK, accessToken,log.getMember_type());
+            resp = new LogSuccessResponse(ResponseMsg.RESP_OK, accessToken,log.getMember_type(),log.getUpdate_status());
         } else {
-            resp = new LogSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken,log.getMember_type());
+            resp = new LogSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken,log.getMember_type(),log.getUpdate_status());
         }
         return resp;
     }

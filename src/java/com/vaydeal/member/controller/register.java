@@ -38,7 +38,7 @@ public class register extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json");
+        response.setContentType("text/html");
         try (PrintWriter out = response.getWriter()) {
             String name = request.getParameter("name");
             String email = request.getParameter("email");

@@ -22,6 +22,7 @@ public class UpdateBankDetailsResult implements Result {
     private String bank;
     private String branch;
     private String ifsc;
+    private String page;
     private String reqValidation;
 
     public String getAt() {
@@ -79,6 +80,16 @@ public class UpdateBankDetailsResult implements Result {
     public void setReqValidation(String reqValidation) {
         this.reqValidation = reqValidation;
     }
+
+    public String getPage() {
+        return page;
+    }
+
+    public void setPage(String page) {
+        this.page = page;
+    }
+    
+    
     
     @Override
     public String getValidationResult() {
@@ -120,6 +131,9 @@ public class UpdateBankDetailsResult implements Result {
             }
             if (ifsc.startsWith(ErrMsg.ERR_MESSAGE)) {
                 error += "ifsc#";
+            }
+            if (page.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "page#";
             }
         }
         return error.substring(0, error.length() - 1);

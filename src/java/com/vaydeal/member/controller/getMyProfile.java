@@ -56,6 +56,7 @@ public class getMyProfile extends HttpServlet {
             String validSubmission = reqR.getValidationResult();
             UserActivities ua = new UserActivities(req.getMember_id(), "get_my_profile", req.getMember_type(), "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
+                response.setContentType("text/html");
                 ProcessGetMyProfile process = new ProcessGetMyProfile(req);
                 GetMyProfileSuccessResponse SResp = process.processRequest();
                 process.closeConnection();
@@ -69,7 +70,6 @@ public class getMyProfile extends HttpServlet {
                 } else {
                     ua.setEntryStatus("invalid");
                 }
-
                 GetMyProfileFailureResponse FResp = new GetMyProfileFailureResponse(reqR, validSubmission);
                 out.write(FResp.toString());
             } else {

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.vaydeal.member.validation;
 
 import com.vaydeal.member.db.DB;
@@ -32,11 +31,11 @@ public class UpdateBankDetailsConstraints implements UpdateBankDetailsValidator 
         this.mdbc = DB.getMongoConnection();
         this.dbc = DB.getConnection();
     }
-    
+
     @Override
     public String validatePan() throws Exception {
         String valid = ErrMsg.ERR_PAN;
-        String regX = RegX.REGX_STRING_UPPER_LOWER_AND_NUMBER;
+        String regX = RegX.REGX_STRING_UPPER_LOWER_AND_NUMBER_PAN;
         String name = req.getPan();
         if (validate(name, regX)) {
             valid = CorrectMsg.CORRECT_PAN;
@@ -94,10 +93,12 @@ public class UpdateBankDetailsConstraints implements UpdateBankDetailsValidator 
         String valid = ErrMsg.ERR_ACCESS_TOKEN;
         MemberID mem = mdbc.getMemberID(at);
         if (!mem.getMember_id().startsWith(ErrMsg.ERR_MESSAGE)) {
+            mem.setMember_update_status(dbc.getMemberUpdateStatus(mem.getMember_id()));
             if (dbc.checkNBMemberID(mem.getMember_id())) {
                 valid = CorrectMsg.CORRECT_ACCESS_TOKEN;
                 req.setMember_id(mem.getMember_id());
                 req.setMember_type(mem.getMember_type());
+                req.setUpdateStatus(mem.getMember_update_status());
             } else {
                 valid = ErrMsg.ERR_AT_BLOCKED;
             }
@@ -119,6 +120,16 @@ public class UpdateBankDetailsConstraints implements UpdateBankDetailsValidator 
         dbc.closeConnection();
         mdbc.closeConnection();
     }
+
+    @Override
+    public String validatePage() throws Exception {
+        String param = req.getPage();
+        String valid = ErrMsg.ERR_PAGE;
+        if (param.equals("pu") && req.getUpdateStatus().startsWith("update")) {
+            valid = CorrectMsg.CORRECT_PAGE;
+        } else if (param.equals("ad") && req.getUpdateStatus().startsWith("profile")) {
+            valid = CorrectMsg.CORRECT_PAGE;
+        }
+        return valid;
+    }
 }
-
-

@@ -27,7 +27,7 @@ public class RegisterSuccessResponse {
         StringBuilder sb = new StringBuilder();
         if (status.equals(ResponseMsg.RESP_OK)) {
             sb.append(
-                    "            <div id=\"indexErr\">" + "<div id=\"msgStatus\" class=\"msg-status error\"> Promotion request posted Successfully. </div>" + "</div>\n"
+                    "            <div id=\"indexErr\">" + "<div id=\"msgStatus\" class=\"msg-status success\"> Promotion request posted Successfully. </div>" + "</div>\n"
                     + "            <div class=\"col-6\"></div>\n"
                     + "            <div class=\"col-6\" id=\"reqPCon\">"
                     + "<div class=\"form register-form\">\n"

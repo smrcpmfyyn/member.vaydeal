@@ -36,6 +36,7 @@ public class UpdateBankDetailsValidation implements Validation {
             valid += "#" + reqC.validateBank();
             valid += "#" + reqC.validateBranch();
             valid += "#" + reqC.validateIfsc();
+            valid += "#" + reqC.validatePage();
         }
         reqC.closeConnection();
         int count = 0;

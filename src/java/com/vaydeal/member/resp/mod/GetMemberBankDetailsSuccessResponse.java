@@ -34,13 +34,27 @@ public class GetMemberBankDetailsSuccessResponse {
 
     @Override
     public String toString() {
-        String response = "";
-        if(status.equals(ResponseMsg.RESP_OK)){
-            response = "{\"status\":\"" + status + "\"\",\" \"bd\":" + bankDeatails + "}";
-        }else{
-            response = "{\"status\":\""+status+"\"}";
+        StringBuilder sb = new StringBuilder();
+        if (status.equals(ResponseMsg.RESP_OK)) {
+            sb.append("<div id=\"updateErr\">\n"
+                    + "\n"
+                    + "                                    </div>\n"
+                    + "                                    <form onsubmit=\"return updateBankDetails('pu')\">"
+                    + bankDeatails.toString()
+                    + "</form>\n"
+                    + "                                </div>"
+            );
+        } else {
+            sb.append("<div id=\"updateErr\">\n"
+                    + "\n"
+                    + "                                    </div>\n"
+                    + "                                    <form onsubmit=\"return updateBankDetails('pu')\">"
+                    + bankDeatails.failiureToString()
+                    + "</form>\n"
+                    + "                                </div>"
+            );
         }
-        return response;
+        return sb.toString();
     }
 }
 

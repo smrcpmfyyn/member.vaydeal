@@ -13,6 +13,7 @@ import com.vaydeal.member.req.mod.UpdateBankDetails;
 import com.vaydeal.member.resp.mod.UpdateBankDetailsFailureResponse;
 import com.vaydeal.member.resp.mod.UpdateBankDetailsSuccessResponse;
 import com.vaydeal.member.result.UpdateBankDetailsResult;
+import com.vaydeal.member.support.controller.BlockMember;
 import com.vaydeal.member.support.controller.UserActivities;
 import com.vaydeal.member.validation.UpdateBankDetailsValidation;
 import java.io.IOException;
@@ -30,6 +31,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author rifaie
  */
 public class updateBankDetails extends HttpServlet {
+
+    private static final long serialVersionUID = -6201636411211544089L;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,17 +52,18 @@ public class updateBankDetails extends HttpServlet {
             String bank = request.getParameter("bn");
             String branch = request.getParameter("br");
             String ifsc = request.getParameter("ifsc");
+            String page = request.getParameter("pg");
             Cookie ck = Servlets.getCookie(request, "at");
             String at = "";
             if (ck != null) {
                 at = ck.getValue();
             }
-            UpdateBankDetails req = new UpdateBankDetails(at, pan, accountNo, bank, branch, ifsc);
+            UpdateBankDetails req = new UpdateBankDetails(at, pan, accountNo, bank, branch, ifsc, page);
             UpdateBankDetailsValidation reqV = new UpdateBankDetailsValidation(req);
             reqV.validation();
             UpdateBankDetailsResult reqR = JSONParser.parseJSONUBDR(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getMember_id(), "update_profile", req.getMember_type(), "valid");
+            UserActivities ua = new UserActivities(req.getMember_id(), "update_bank_details", req.getMember_type(), "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessUpdateBankDetails process = new ProcessUpdateBankDetails(req);
                 UpdateBankDetailsSuccessResponse SResp = process.processRequest();
@@ -71,6 +75,10 @@ public class updateBankDetails extends HttpServlet {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
                     ua.setEntryStatus("invalid");
+                } else if (reqR.getPage().startsWith(ErrMsg.ERR_MESSAGE)) {
+                    BlockMember bau = new BlockMember(req.getMember_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
                 } else {
                     ua.setEntryStatus("invalid");
                 }

@@ -13,6 +13,7 @@ package com.vaydeal.member.mongo.mod;
 public class MemberID {
     private String member_id;
     private String member_type;
+    private String member_update_status;
 
     public String getMember_id() {
         return member_id;
@@ -28,5 +29,13 @@ public class MemberID {
 
     public void setMember_type(String member_type) {
         this.member_type = member_type;
+    }
+
+    public String getMember_update_status() {
+        return member_update_status;
+    }
+
+    public void setMember_update_status(String member_update_status) {
+        this.member_update_status = member_update_status;
     }
 }

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.vaydeal.member.db;
 
 import com.vaydeal.member.req.mod.ChangePassword;
@@ -28,6 +27,7 @@ import java.util.List;
  * @author rifaie
  */
 public class DBConnect {
+
     private Connection connect = null;
     private ResultSet rs;
 
@@ -94,7 +94,7 @@ public class DBConnect {
     }
 
     public List<String> getPassDSalt(String uname) throws SQLException {
-        PreparedStatement ps = connect.prepareStatement("SELECT salt,password,member_id,member_type FROM member_logger WHERE member_id = ? OR member_email = ?");
+        PreparedStatement ps = connect.prepareStatement("SELECT salt,password,member_id,member_type,update_status FROM member_logger WHERE member_id = ? OR member_email = ?");
         List<String> proD = new ArrayList<>();
         ps.setString(1, uname);
         ps.setString(2, uname);
@@ -104,6 +104,7 @@ public class DBConnect {
             proD.add(rs.getString("password"));
             proD.add(rs.getString("member_id"));
             proD.add(rs.getString("member_type"));
+            proD.add(rs.getString("update_status"));
         }
         return proD;
     }
@@ -189,7 +190,7 @@ public class DBConnect {
     }
 
     public MyProfile getMyProfile(String member_id) throws SQLException {
-        PreparedStatement ps = connect.prepareStatement("SELECT member_id,member_name,member_address1,member_address2,member_place,member_pin,member_city,member_email,member_mobile,member_type FROM member_report WHERE member_id = ?");
+        PreparedStatement ps = connect.prepareStatement("SELECT member_id,member_name,member_address1,member_address2,member_place,member_pin,member_city,member_email,member_mobile,member_type FROM member_profile WHERE member_id = ?");
         ps.setString(1, member_id);
         rs = ps.executeQuery();
         MyProfile myProfile;
@@ -204,16 +205,30 @@ public class DBConnect {
     }
 
     public boolean updateProfile(UpdateProfile req) throws SQLException {
-        PreparedStatement ps = connect.prepareStatement("UPDATE member SET member_name = ?, member_address1 = ?, member_address2 = ?, member_pin = ?, member_place = ?, member_city = ? WHERE member _id = ?");
-        ps.setString(1, req.getName());
-        ps.setString(2, req.getAddress1());
-        ps.setString(3, req.getAddress2());
-        ps.setString(4, req.getPin());
-        ps.setString(5, req.getPlace());
-        ps.setString(6, req.getCity());
-        ps.setString(7, req.getMember_id());
-        int c = ps.executeUpdate();
-        ps.close();
+        int c = 0;
+        if (req.getPage().equals("pu")) {
+            PreparedStatement ps = connect.prepareStatement("UPDATE member SET member_name = ?, member_address1 = ?, member_address2 = ?, member_pin = ?, member_place = ?, member_city = ? WHERE member_id = ?");
+            ps.setString(1, req.getName());
+            ps.setString(2, req.getAddress1());
+            ps.setString(3, req.getAddress2());
+            ps.setString(4, req.getPin());
+            ps.setString(5, req.getPlace());
+            ps.setString(6, req.getCity());
+            ps.setString(7, req.getMember_id());
+            c = ps.executeUpdate();
+            ps.close();
+        } else {
+            PreparedStatement ps = connect.prepareStatement("UPDATE member SET member_name = ?, member_address1 = ?, member_address2 = ?, member_pin = ?, member_place = ?, member_city = ?, member_update_status = 3 WHERE member_id = ?");
+            ps.setString(1, req.getName());
+            ps.setString(2, req.getAddress1());
+            ps.setString(3, req.getAddress2());
+            ps.setString(4, req.getPin());
+            ps.setString(5, req.getPlace());
+            ps.setString(6, req.getCity());
+            ps.setString(7, req.getMember_id());
+            c = ps.executeUpdate();
+            ps.close();
+        }
         return c == 1;
     }
 
@@ -233,28 +248,48 @@ public class DBConnect {
     }
 
     public boolean updateBankDetails(UpdateBankDetails req) throws SQLException {
-        boolean f1 = updatePan(req);
         boolean f2 = updateBank(req);
-        return f1&f2;
+        boolean f1 = updatePan(req);
+        return f1 & f2;
     }
 
     private boolean updatePan(UpdateBankDetails req) throws SQLException {
-        PreparedStatement ps = connect.prepareStatement("UPDATE member SET member_pan = ? WHERE member _id = ?");
-        ps.setString(1, req.getPan());
-        ps.setString(2, req.getMember_id());
-        int c = ps.executeUpdate();
-        ps.close();
+        int c = 0;
+        if (req.getPage().equals("pu")) {
+            if (!req.getPan().equals("")) {
+                PreparedStatement ps = connect.prepareStatement("UPDATE member SET member_pan = ? WHERE member _id = ?");
+                ps.setString(1, req.getPan());
+                ps.setString(2, req.getMember_id());
+                c = ps.executeUpdate();
+                ps.close();
+            }
+        } else {
+            if (req.getPan().equals("")) {
+                PreparedStatement ps = connect.prepareStatement("UPDATE member SET member_update_status = 2 WHERE member_id = ?");
+//            ps.setString(1, req.getPan());
+                ps.setString(1, req.getMember_id());
+                c = ps.executeUpdate();
+                ps.close();
+            }else{
+                PreparedStatement ps = connect.prepareStatement("UPDATE member SET member_pan = ? member_update_status = 2 WHERE member_id = ?");
+                ps.setString(1, req.getPan());
+                ps.setString(2, req.getMember_id());
+                c = ps.executeUpdate();
+                ps.close();
+            }
+        }
         return c == 1;
     }
 
     private boolean updateBank(UpdateBankDetails req) throws SQLException {
-        PreparedStatement ps = connect.prepareStatement("UPDATE member_bank SET bank_name = ?, bank_branch = ?, bank_account_no = ?, bank_ifsc = ? WHERE member _id = ?");
+        int c = 0;
+        PreparedStatement ps = connect.prepareStatement("UPDATE member_bank SET bank_name = ?, bank_branch = ?, bank_account_no = ?, bank_ifsc = ? WHERE member_id = ?");
         ps.setString(1, req.getBank());
         ps.setString(2, req.getBranch());
         ps.setString(3, req.getAccountNo());
         ps.setString(4, req.getIfsc());
         ps.setString(5, req.getMember_id());
-        int c = ps.executeUpdate();
+        c = ps.executeUpdate();
         ps.close();
         return c == 1;
     }
@@ -296,5 +331,28 @@ public class DBConnect {
         rs.close();
         ps.close();
         return type;
+    }
+
+    public boolean checkPinChange(String param, String member_id) throws SQLException {
+        PreparedStatement ps = connect.prepareStatement("SELECT count(*) FROM member_profile WHERE member_id = ? AND member_pin = ?");
+        ps.setString(1, member_id);
+        ps.setString(2, param);
+        rs = ps.executeQuery();
+        rs.next();
+        int c = rs.getInt(1);
+        rs.close();
+        ps.close();
+        return c == 0;
+    }
+
+    public String getMemberUpdateStatus(String member_id) throws SQLException {
+        PreparedStatement ps = connect.prepareStatement("SELECT member_update_status FROM member_profile WHERE member_id = ?");
+        ps.setString(1, member_id);
+        rs = ps.executeQuery();
+        rs.next();
+        String us = rs.getString(1);
+        rs.close();
+        ps.close();
+        return us;
     }
 }

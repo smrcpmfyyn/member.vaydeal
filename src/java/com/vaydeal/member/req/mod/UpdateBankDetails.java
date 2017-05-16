@@ -14,19 +14,22 @@ public class UpdateBankDetails {
     private final String at;
     private String member_id;
     private String member_type;
+    private String updateStatus;
     private final String accountNo;
     private final String bank;
     private final String branch;
     private final String ifsc;
     private final String pan;
+    private final String page;
 
-    public UpdateBankDetails(String at, String pan, String accountNo, String bank, String branch, String ifsc) {
+    public UpdateBankDetails(String at, String pan, String accountNo, String bank, String branch, String ifsc, String page) {
         this.at = at;
         this.accountNo = accountNo;
         this.bank = bank;
         this.branch = branch;
         this.ifsc = ifsc;
         this.pan = pan;
+        this.page = page;
     }
 
     public void setMember_id(String member_id) {
@@ -67,6 +70,18 @@ public class UpdateBankDetails {
 
     public String getPan() {
         return pan;
+    }
+
+    public String getUpdateStatus() {
+        return updateStatus;
+    }
+
+    public void setUpdateStatus(String updateStatus) {
+        this.updateStatus = updateStatus;
+    }
+
+    public String getPage() {
+        return page;
     }
 
     

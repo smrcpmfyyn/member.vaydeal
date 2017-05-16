@@ -26,6 +26,7 @@ public class ErrMsg {
     public static final String ERR_TOKEN = "Invalid Token invalid";
     public static final String ERR_NAME = "Invalid name invalid";
     public static final String ERR_PAN = "Invalid pan invalid";
+    public static final String ERR_PAGE = "Invalid page invalid";
     public static final String ERR_ADDRESS1 = "Invalid add1 invalid";
     public static final String ERR_ACCOUNT_NO = "Invalid accno invalid";
     public static final String ERR_ADDRESS2 = "Invalid add2 invalid";

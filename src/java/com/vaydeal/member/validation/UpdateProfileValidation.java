@@ -36,6 +36,7 @@ public class UpdateProfileValidation implements Validation {
             valid += "#" + reqC.validatePin();
             valid += "#" + reqC.validatePlace();
             valid += "#" + reqC.validateCity();
+            valid += "#" + reqC.validatePage();
         }
         reqC.closeConnection();
         int count = 0;

@@ -11,9 +11,16 @@ package com.vaydeal.member.message;
  * @author rifaie
  */
 public class URLs {
+    
     private static final String MEMBER_PASSWORD_GENERATION = "http://localhost:8080/member.vaydeal/resetPassword.html?token=";
-
+    private static final String PIN_VALIDATION = "http://localhost:8080/member.vaydeal/pincodeValidation";
+    
     public static String getMEMBER_PASSWORD_GENERATION() {
         return MEMBER_PASSWORD_GENERATION;
     }
+
+    public static String getPIN_VALIDATION() {
+        return PIN_VALIDATION;
+    }
+    
 }

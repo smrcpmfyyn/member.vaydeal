@@ -42,6 +42,29 @@ public class MemberBankDetails {
 
     @Override
     public String toString() {
-        return "{\"mid\":\"" + mid + "\",\" pan\":\"" + pan + "\",\" accno\":\"" + accno + "\",\" bank\":\"" + bank + "\",\" branch\":\"" + branch + "\",\" ifsc\":\"" + ifsc + '}';
+        StringBuilder sb = new StringBuilder();
+        String res = "<label> User ID </label>\n" +
+"                                    <input id=\"mid\" type=\"text\" name=\"id\" value=\""+mid+"\" readonly>\n" +
+"                                    <label> Pan Card Number </label>\n" +
+"                                    <input id=\"mpan\" type=\"text\" name=\"pan\" value=\""+pan+"\">\n" +
+"                                    <label> Account Number *</label>\n" +
+"                                    <input id=\"macc\" type=\"text\" name=\"account\" value=\""+accno+"\" required>\n" +
+"                                    <label> Bank *</label>\n" +
+"                                    <input id=\"bank\" type=\"text\" name=\"bank\" value=\""+bank+"\" required>\n" +
+"                                    <label> Branch *</label>\n" +
+"                                    <input id=\"br\" type=\"text\" name=\"branch\" value=\""+branch+"\" required>\n" +
+"                                    <label> IFSC *</label>\n" +
+"                                    <input id=\"ifsc\" type=\"text\" name=\"ifsc\" value=\""+ifsc+"\" required>\n" +
+"                                    <button type=\"submit\" class=\"btn btn-bg waves-effect\"> Update </button>";
+        res = res.replaceAll("null", "");
+        sb.append(res);
+        return sb.toString();
+    }
+    
+    public String failiureToString() {
+        StringBuilder sb = new StringBuilder();
+        String res = "<label onclick = location.reload(true);> Please reload </label>\n";
+        sb.append(res);
+        return sb.toString();
     }
 }

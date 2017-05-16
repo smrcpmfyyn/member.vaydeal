@@ -23,6 +23,7 @@ public class CorrectMsg {
     public static final String CORRECT_WEBSITE = "Valid website";
     public static final String CORRECT_NAME = "Valid name";
     public static final String CORRECT_PAN = "Valid pan";
+    public static final String CORRECT_PAGE = "Valid page";
     public static final String CORRECT_ADDRESS1 = "Valid add1";
     public static final String CORRECT_ACCOUNT_NO = "Valid accno";
     public static final String CORRECT_ADDRESS2 = "Valid add2";

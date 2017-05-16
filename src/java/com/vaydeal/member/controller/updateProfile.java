@@ -13,6 +13,7 @@ import com.vaydeal.member.req.mod.UpdateProfile;
 import com.vaydeal.member.resp.mod.UpdateProfileFailureResponse;
 import com.vaydeal.member.resp.mod.UpdateProfileSuccessResponse;
 import com.vaydeal.member.result.UpdateProfileResult;
+import com.vaydeal.member.support.controller.BlockMember;
 import com.vaydeal.member.support.controller.UserActivities;
 import com.vaydeal.member.validation.UpdateProfileValidation;
 import java.io.IOException;
@@ -50,12 +51,13 @@ public class updateProfile extends HttpServlet {
             String pin = request.getParameter("pin");
             String place = request.getParameter("place");
             String city = request.getParameter("city");
+            String page = request.getParameter("pg");
             Cookie ck = Servlets.getCookie(request, "at");
             String at = "";
             if (ck != null) {
                 at = ck.getValue();
             }
-            UpdateProfile req = new UpdateProfile(at, name, address1, address2, pin, place, city);
+            UpdateProfile req = new UpdateProfile(at, name, address1, address2, pin, place, city, page);
             UpdateProfileValidation reqV = new UpdateProfileValidation(req);
             reqV.validation();
             UpdateProfileResult reqR = JSONParser.parseJSONUPR(reqV.toString());
@@ -63,7 +65,8 @@ public class updateProfile extends HttpServlet {
             UserActivities ua = new UserActivities(req.getMember_id(), "update_profile", req.getMember_type(), "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessUpdateProfile process = new ProcessUpdateProfile(req);
-                UpdateProfileSuccessResponse SResp = process.processRequest();
+                UpdateProfileSuccessResponse SResp = null;
+                SResp = process.processRequest();
                 process.closeConnection();
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
@@ -72,6 +75,10 @@ public class updateProfile extends HttpServlet {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
                     ua.setEntryStatus("invalid");
+                } else if (reqR.getPage().startsWith(ErrMsg.ERR_MESSAGE)) {
+                    BlockMember bau = new BlockMember(req.getMember_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
                 } else {
                     ua.setEntryStatus("invalid");
                 }
@@ -88,7 +95,7 @@ public class updateProfile extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

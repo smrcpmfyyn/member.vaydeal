@@ -54,8 +54,37 @@ public class MyProfile {
 
     @Override
     public String toString() {
-        return "{\"mid\":\"" + mid + "\", \" mname\":\"" + mname + "\", \" madd1\":\"" + madd1 + "\", \" madd2\":\"" + madd2 + "\", \" mplace\":\"" + mplace + "\", \" mpin\":\"" + mpin + "\", \" mcity\":\"" + mcity + "\", \" memail\":\"" + memail + "\", \" mmobile\":\"" + mmobile + "\", \" mtype\":\"" + mtype + "\"}";
+        StringBuilder sb = new StringBuilder();
+        String res = "<label> User ID </label>\n" +
+"                                        <input id=\"mid\" type=\"text\" name=\"userid\" value=\""+mid+"\" readonly>\n" +
+"                                        <label> Member Type </label>\n" +
+"                                        <input id=\"mtype\" type=\"text\" name=\"type\" value=\""+mtype+"\" readonly>\n" +
+"                                        <label> Name *</label>\n" +
+"                                        <input id=\"mn\" type=\"text\" name=\"name\" value=\""+mname+"\" required>\n" +
+"                                        <label> Address 1 *</label>\n" +
+"                                        <input id=\"madd1\" type=\"text\" name=\"address1\" value=\""+madd1+"\" required>\n" +
+"                                        <label> Address 2 </label>\n" +
+"                                        <input id=\"madd2\" type=\"text\" name=\"address2\" value=\""+madd2+"\">\n" +
+"                                        <label> Place *</label>\n" +
+"                                        <input id=\"mpl\" type=\"text\" name=\"place\" value=\""+mplace+"\" required>\n" +
+"                                        <label> Pin *</label>\n" +
+"                                        <input id=\"mpin\" type=\"text\" name=\"pin\" value=\""+mpin+"\" required>\n" +
+"                                        <label> City *</label>\n" +
+"                                        <input id=\"mcity\" type=\"text\" name=\"city\" value=\""+mcity+"\" required>\n" +
+"                                        <label> Email </label>\n" +
+"                                        <input id=\"memail\" type=\"email\" name=\"email\" value=\""+memail+"\" readonly>\n" +
+"                                        <label> Mobile </label>\n" +
+"                                        <input id=\"mmob\" type=\"text\" name=\"mobile\" value=\""+mmobile+"\" readonly>\n" +
+"                                        <button type=\"submit\" class=\"btn btn-bg waves-effect\"> Update </button>";
+        res = res.replaceAll("null", "");
+        sb.append(res);
+        return sb.toString();
     }
     
-    
+    public String failiureToString() {
+        StringBuilder sb = new StringBuilder();
+        String res = "<label onclick = location.reload(true);> Please reload </label>\n";
+        sb.append(res);
+        return sb.toString();
+    }
 }

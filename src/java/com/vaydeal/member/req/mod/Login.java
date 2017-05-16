@@ -17,6 +17,7 @@ public class Login {
     private String salt;
     private String member_id;
     private String member_type;
+    private String update_status;
     
     public Login(String uName, String password) {
         this.uName = uName;
@@ -57,6 +58,14 @@ public class Login {
 
     public String getMember_type() {
         return member_type;
+    }
+
+    public String getUpdate_status() {
+        return update_status;
+    }
+
+    public void setUpdate_status(String update_status) {
+        this.update_status = update_status;
     }
     
     public void changePassword() throws Exception{

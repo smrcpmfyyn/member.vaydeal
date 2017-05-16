@@ -48,16 +48,17 @@
         </main>
         <div id="regErr">
             <div id="indexErr"></div>
-            <div class="col-6">program</div>
+            <div class="col-6"></div>
             <div class="col-6" id="redCon">
                 <div class="form register-form">
+                    <h2>Register</h2>
                     <form onsubmit="return register()">
-                        <label> Name</label>
-                        <input id="name" type="text" name="name">
-                        <label> Email</label>
-                        <input id="email" type="email" name="email">
-                        <label> Mobile </label>
-                        <input id="mob" type="text" name="mobile">
+                        <label> Name *</label>
+                        <input id="name" type="text" name="name" placeholder="" value="" required>
+                        <label> Email *</label>
+                        <input id="email" type="email" name="email" placeholder="" value="" required>
+                        <label> Mobile *</label>
+                        <input id="mob" type="text" pattern="[7-9]{1}[0-9]{9}" name="mobile" placeholder="" value="" required>
                         <button type="submit" class="btn btn-bg waves-effect"> Register </button>
                     </form>
                 </div>
@@ -69,48 +70,7 @@
                         $(document).ready(function () {
                             checkForParams();
                         });
-                        
-                        function checkForParams() {
-                            var le = getUrlParameter("le");
-                            if (le === '1') {
-                                $("#indexErr").html("<div id=\"msgStatus\" class=\"msg-status error\">Login error!</div>");
-                                autoHide("msgStatus");
-                            }
-                        }
 
-                        function loginFN() {
-                            var user = $("#userName").val();
-                            var pass = $("#userPassword").val();
-                            $.post("login", {"uname": user, "pass": pass}, function (suc) {
-                                if (suc.status === "ok") {
-                                    window.location.href = suc.ut + "/master.html";
-                                } else {
-                                    if (!(typeof suc.uname === 'undefined' || suc.uname === null)) {
-                                        if (suc.uname.startsWith("not")) {
-                                            $("#indexErr").html("<div id=\"msgStatus\" class=\"msg-status error\"> Username not exists</div>");
-                                        } else {
-                                            $("#indexErr").html("<div id=\"msgStatus\" class=\"msg-status error\"> Username invalid</div>");
-                                        }
-                                    } else if (!(typeof suc.password === 'undefined' || suc.password === null)) {
-                                        $("#indexErr").html("<div id=\"msgStatus\" class=\"msg-status error\"> Password invalid</div>");
-                                    }
-                                    autoHide("msgStatus");
-                                }
-
-                            });
-                            return false;
-                        }
-
-                        function register() {
-                            var name = $("#name").val();
-                            var email = $("#email").val();
-                            var mob = $("#mob").val();;
-                            $.post("register", {'name': name, 'email': email, 'mob': mob}, function (suc) {
-                                $("#regErr").html(suc);
-                                autoHide("msgStatus");
-                            });
-                            return false;
-                        }
         </script>
     </body>
 </html>

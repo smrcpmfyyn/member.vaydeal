@@ -1188,6 +1188,12 @@ nav ul li a:hover, nav ul li a:focus{
     color: #ff6060;
     background-color: rgb(255, 229, 229);
 }
+
+.msg-status.success {
+    color: #52dc90;
+    background-color: #dafccf;
+}
+
 .sm-select .select-dropdown{    
     max-height: 250px;
 }
@@ -1484,4 +1490,25 @@ nav ul li a:hover, nav ul li a:focus{
 }
 .table {
     
+}
+
+
+.sub-main-section{
+    clear: both;
+}
+.sub-main-section .col-6{
+    margin: 50px auto;
+    float: none;
+}
+.sub-main-section .personal-details{
+    padding: 25px;
+    float: left;
+    margin: 25px 0;
+    box-shadow: 0 0 3px 0 rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+.sub-main-section .form input{
+    height: 35px;
+    line-height: 35px;
+    margin-bottom: 10px;
 }

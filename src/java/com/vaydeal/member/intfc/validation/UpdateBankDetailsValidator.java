@@ -15,4 +15,5 @@ public interface UpdateBankDetailsValidator extends LogValidator{
     public String validateBank() throws Exception;
     public String validateBranch() throws Exception;
     public String validateIfsc() throws Exception;
+    public String validatePage() throws Exception;
 }

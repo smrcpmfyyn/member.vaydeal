@@ -45,7 +45,7 @@
         <servlet-class>com.vaydeal.member.controller.getMemberBankDetails</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UpdateBankDeatails</servlet-name>
+        <servlet-name>updateBankDetails</servlet-name>
         <servlet-class>com.vaydeal.member.controller.updateBankDetails</servlet-class>
     </servlet>
     <servlet>
@@ -59,6 +59,10 @@
     <servlet>
         <servlet-name>forgotPassword</servlet-name>
         <servlet-class>com.vaydeal.member.controller.forgotPassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>pincodeValidation</servlet-name>
+        <servlet-class>com.vaydeal.member.controller.pincodeValidation</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>getNoMembers</servlet-name>
@@ -105,8 +109,8 @@
         <url-pattern>/getMemberBankDetails</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UpdateBankDeatails</servlet-name>
-        <url-pattern>/UpdateBankDeatails</url-pattern>
+        <servlet-name>updateBankDetails</servlet-name>
+        <url-pattern>/updateBankDetails</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>changePassword</servlet-name>
@@ -119,6 +123,10 @@
     <servlet-mapping>
         <servlet-name>forgotPassword</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>pincodeValidation</servlet-name>
+        <url-pattern>/pincodeValidation</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

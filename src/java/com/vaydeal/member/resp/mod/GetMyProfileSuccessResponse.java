@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.vaydeal.member.resp.mod;
 
 import com.vaydeal.member.message.ResponseMsg;
@@ -13,6 +12,7 @@ import com.vaydeal.member.message.ResponseMsg;
  * @author rifaie
  */
 public class GetMyProfileSuccessResponse {
+
     private final String status;
     private final String accessToken;
     private MyProfile myProfile;
@@ -34,13 +34,26 @@ public class GetMyProfileSuccessResponse {
 
     @Override
     public String toString() {
-        String response = "";
-        if(status.equals(ResponseMsg.RESP_OK)){
-            response = "{\"status\":\"" + status + "\", \"mp\":" + myProfile + "}";
-        }else{
-            response = "{\"status\":\""+status+"\"}";
+        StringBuilder sb = new StringBuilder();
+        if (status.equals(ResponseMsg.RESP_OK)) {
+            sb.append("<div id=\"updateErr\">\n"
+                    + "\n"
+                    + "                                    </div>\n"
+                    + "                                    <form onsubmit=\"return updateProfile('pu')\">"
+                    + myProfile.toString()
+                    + "</form>\n"
+                    + "                                </div>"
+            );
+        } else {
+            sb.append("<div id=\"updateErr\">\n"
+                    + "\n"
+                    + "                                    </div>\n"
+                    + "                                    <form onsubmit=\"return updateProfile('pu')\">"
+                    + myProfile.failiureToString()
+                    + "</form>\n"
+                    + "                                </div>"
+            );
         }
-        return response;
+        return sb.toString();
     }
 }
-

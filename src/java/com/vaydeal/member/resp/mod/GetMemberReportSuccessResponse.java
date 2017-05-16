@@ -34,12 +34,18 @@ public class GetMemberReportSuccessResponse {
 
     @Override
     public String toString() {
-        String response = "";
-        if(status.equals(ResponseMsg.RESP_OK)){
-            response = "{\"status\":\"" + status + "\", \"ap\":" + memReport + "}";
-        }else{
-            response = "{\"status\":\""+status+"\"}";
+        StringBuilder sb = new StringBuilder();
+        if (status.equals(ResponseMsg.RESP_OK)) {
+            sb.append("<ul class=\"reports-list\">"
+                    + memReport.toString()
+                    + "</ul>"
+            );
+        } else {
+            sb.append("<ul class=\"reports-list\">"
+                    + memReport.failiureToString()
+                    + "</ul>"
+            );
         }
-        return response;
+        return sb.toString();
     }
 }

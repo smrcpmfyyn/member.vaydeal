@@ -56,6 +56,7 @@ public class getMemberReport extends HttpServlet {
             String validSubmission = reqR.getValidationResult();
             UserActivities ua = new UserActivities(req.getMember_id(), "get_member_report", req.getMember_type(), "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
+                response.setContentType("text/html");
                 ProcessGetMemberReport process = new ProcessGetMemberReport(req);
                 GetMemberReportSuccessResponse SResp = process.processRequest();
                 process.closeConnection();

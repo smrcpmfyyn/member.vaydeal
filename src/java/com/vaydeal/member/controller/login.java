@@ -59,7 +59,6 @@ public class login extends HttpServlet {
                 response.addCookie(ck);         
                 //check for type and change the page accordingly if neccessary
                 if (SResp.getStatus().equals(ResponseMsg.RESP_OK)) {
-                    System.out.println(SResp.toString());
                     out.write(SResp.toString());
                 } else {
                     System.out.println(SResp.toString());

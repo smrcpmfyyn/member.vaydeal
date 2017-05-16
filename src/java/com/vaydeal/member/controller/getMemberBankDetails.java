@@ -56,6 +56,7 @@ public class getMemberBankDetails extends HttpServlet {
             String validSubmission = reqR.getValidationResult();
             UserActivities ua = new UserActivities(req.getMember_id(), "get_member_bank_details", req.getMember_type(), "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
+                response.setContentType("text/html");
                 ProcessGetMemberBankDetails process = new ProcessGetMemberBankDetails(req);
                 GetMemberBankDetailsSuccessResponse SResp = process.processRequest();
                 process.closeConnection();

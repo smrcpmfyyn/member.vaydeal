@@ -14,6 +14,7 @@ public class LogSuccessResponse {
     private final String status;
     private final String accessToken;
     private String userType;
+    private final String us;
 
     public String getStatus() {
         return status;
@@ -23,10 +24,11 @@ public class LogSuccessResponse {
         return accessToken;
     }
 
-    public LogSuccessResponse(String status, String accessToken, String userType) {
+    public LogSuccessResponse(String status, String accessToken, String userType, String us) {
         this.status = status;
         this.accessToken = accessToken;
         this.userType = userType;
+        this.us = us;
     }
 
     @Override
@@ -34,7 +36,13 @@ public class LogSuccessResponse {
         if(userType.endsWith("associate")){
             userType = "associate";
         }
-        return "{\"status\":\"" + status  +"\",\"ut\":\""+userType+"\"}";
+        String us1 = "1";
+        if(us.equals("updated")){
+            us1 = "2";
+        }else if(us.startsWith("profile")){
+            us1 = "3";
+        }
+        return "{\"status\":\"" + status  +"\",\"ut\":\""+userType+"\",\"us\":\""+us1+"\"}";
     }
     
 }
